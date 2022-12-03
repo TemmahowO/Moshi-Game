@@ -27,6 +27,19 @@ pygame.display.set_caption("Moshi Game")
 hunger = 50
 health = 100
 
+def Object_Controller():
+    global food_x_speed
+    global food_y_speed
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            food_x_speed = -5
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+            food_x_speed = 5
+        elif event.key == pygame.K_UP or event.key == pygame.K_w:
+            food_y_speed = 5
+        elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+            food_y_speed = -5
+
 while True:
     # Bare bones stuff
     for event in pygame.event.get():
@@ -46,8 +59,10 @@ while True:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT or event.key == pygame.K_a or event.key == pygame.K_d:
                     player_x_speed = 0
+                    food_x_speed = 0
             if event.key == pygame.K_UP or event.key == pygame.K_DOWN or event.key == pygame.K_w or event.key == pygame.K_s:
                     player_y_speed = 0
+                    food_y_speed = 0
 
     # Actually moving the player
     player_x += player_x_speed
@@ -57,29 +72,30 @@ while True:
     if player_y >= window_height - 120:
         player_y_speed = 0
         player_y = window_height - 120
-        food_y_speed = 5
+        Object_Controller()
     # used real values instead of a sum because I can't be bothered to figure out
     # what I am supposed to take away from 500 to make 120
     elif player_y <= 120:
-         player_y_speed = 0
-         player_y = 120
-         food_y_speed = -5
-
+        player_y_speed = 0
+        player_y = 120
+        Object_Controller()
     if player_x >= window_width - 120:
         player_x_speed = 0
         player_x = window_width - 120
-        food_x_speed = -5
+        Object_Controller()
     elif player_x <= 120:
         player_x_speed = 0
         player_x = 120
+        Object_Controller()
 
     # Moving the objects
     food_x += food_x_speed
     food_y += food_y_speed
 
-
-    print("y: ", player_y)
-    print("x: ", player_x)
+    #Debug stuff
+    #print("y: ", player_y)
+    #print("x: ", player_x)
+    print("food_x_speed: ", food_x_speed, "\nfood_y_speed: ", food_y_speed)    
 
     # Rendering and updating stuff.
     window.fill(white)
@@ -87,6 +103,5 @@ while True:
     player = pygame.draw.rect(window, red, [player_x - 10, player_y - 10, 10, 10])
     pygame.display.update()
     clock.tick(fps)
-    print("cock")
 
 quit()
