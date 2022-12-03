@@ -87,6 +87,6 @@ while True:
     player = pygame.draw.rect(window, red, [player_x - 10, player_y - 10, 10, 10])
     pygame.display.update()
     clock.tick(fps)
-    print("balls")
+    print("cock")
 
 quit()
