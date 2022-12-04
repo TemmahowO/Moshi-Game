@@ -27,6 +27,7 @@ hunger = 50
 health = 100
 
 
+
 while True:
     # Bare bones stuff
     for event in pygame.event.get():
@@ -35,7 +36,7 @@ while True:
     keys = pygame.key.get_pressed()
 
     # Movement controller.
-    # Did not use "if event.type == KETYDOWN" because it is broken
+    # Did not use "if event.type == KEYDOWN" because it is broken
     if keys[pygame.K_UP]:
         food_y_speed = 5
     elif keys[pygame.K_DOWN]:
@@ -55,8 +56,9 @@ while True:
     food_y += food_y_speed
 
     # Collision checking
-    if food_x >= player_x_pos and food_x <= player_x_pos + 10:
-        if food_y >= player_y_pos and food_y <= player_y_pos + 10:
+    # Figure out how this works. It is confusing the life out of me.
+    if player_x_pos >= food_x and player_x_pos <= food_x + 30:
+        if player_y_pos >= food_y and player_y_pos <= food_y + 30:
             print("collision detected") 
 
     #Debug stuff
@@ -66,7 +68,7 @@ while True:
 
     # Rendering and updating stuff.
     window.fill(white)
-    pygame.draw.rect(window, gray, [food_x, food_y, 10, 10]) # Food
+    pygame.draw.rect(window, gray, [food_x, food_y, 20, 20]) # Food
     pygame.draw.rect(window, red, [player_x_pos - 10, player_y_pos - 10, 10, 10]) # Player
     pygame.display.update()
     clock.tick(fps)
