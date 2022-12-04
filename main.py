@@ -49,7 +49,7 @@ window_width = 500
 window_height = 500
 
 fps = 30
-clock = pygame.clock.Clock()
+clock = pygame.time.Clock()
 
 object_y = 0
 object_x = 0
