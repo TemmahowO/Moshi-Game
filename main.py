@@ -11,4 +11,4 @@ object_x = 0
 player_x = 0
 player_y = 0
 
-window = pygame.display.set_mode()
+window = pygame.display.set_mode((window_width, window_height))
