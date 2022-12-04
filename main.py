@@ -41,10 +41,14 @@ def movement_controller():
 
 
 def collision_check():
-    if player_x > object_x and player_x < object_x + object_width or player_x + player_width > object_x and player_x + player_width < object_y + object_width:
-        print("x collision")
-        if player_y > object_y and player_y < object_y + object_hight or player_y + player_hight > object_y and player_y + player_hight < object_y:
-            print("x and y")
+    # if player_x > object_x and player_x < object_x + object_width or player_x + player_width > object_x and player_x + player_width < object_y + object_width:
+    #     print("x collision")
+    #     if player_y > object_y and player_y < object_y + object_hight or player_y + player_hight > object_y and player_y + player_hight < object_y:
+    #         print("x and y")
+
+     if player_x >= object_x and player_x <= object_x + 20:
+        if player_y >= object_y and player_y <= object_y + 20:
+            print("Balls")
 
 pygame.init()
 
@@ -78,7 +82,6 @@ pygame.display.set_caption("Moshi Game")
 
 
 while Game_on == True:
-    print("balls")
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             Game_on = False
