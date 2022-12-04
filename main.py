@@ -1,4 +1,5 @@
 import pygame
+from random import randint
 
 pygame.init()
 
@@ -11,10 +12,8 @@ window_height = 500
 window_width = 500
 clock = pygame.time.Clock()
 fps = 25
-player_y = 250
-player_x = 250
-player_x_speed = 0
-player_y_speed = 0
+player_y_pos = 250
+player_x_pos = 250
 
 food_y = 250
 food_x = 250
@@ -33,36 +32,42 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+    keys = pygame.key.get_pressed()
 
-    if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-            food_x_speed = -5
-        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-            food_x_speed = 5
-        elif event.key == pygame.K_UP or event.key == pygame.K_w:
-            food_y_speed = 5
-        elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-            food_y_speed = -5
-    if event.type == pygame.KEYUP:
-        if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT or event.key == pygame.K_a or event.key == pygame.K_d:
-            food_x_speed = 0
-        if event.key == pygame.K_UP or event.key == pygame.K_DOWN or event.key == pygame.K_w or event.key == pygame.K_s:
-            food_y_speed = 0 
+    # Movement controller.
+    # Did not use "if event.type == KETYDOWN" because it is broken
+    if keys[pygame.K_UP]:
+        food_y_speed = 5
+    elif keys[pygame.K_DOWN]:
+        food_y_speed = -5
+    else:
+        food_y_speed = 0
 
-
+    if keys[pygame.K_RIGHT]:
+        food_x_speed = -5
+    elif keys[pygame.K_LEFT]:
+        food_x_speed = 5
+    else:
+        food_x_speed = 0
+    
     # Moving the objects
     food_x += food_x_speed
     food_y += food_y_speed
 
+    # Collision checking
+    if food_x >= player_x_pos and food_x <= player_x_pos + 10:
+        if food_y >= player_y_pos and food_y <= player_y_pos + 10:
+            print("collision detected") 
+
     #Debug stuff
-    #print("y: ", player_y)
-    #print("x: ", player_x)
-    print("food_x_speed: ", food_x_speed, "\nfood_y_speed: ", food_y_speed)    
+    print("y: ", food_y)
+    print("x: ", food_x)
+    #print("food_x_speed: ", food_x_speed, "\nfood_y_speed: ", food_y_speed)
 
     # Rendering and updating stuff.
     window.fill(white)
-    food = pygame.draw.rect(window, gray, [food_x, food_y, 10, 10])
-    player = pygame.draw.rect(window, red, [player_x - 10, player_y - 10, 10, 10])
+    pygame.draw.rect(window, gray, [food_x, food_y, 10, 10]) # Food
+    pygame.draw.rect(window, red, [player_x_pos - 10, player_y_pos - 10, 10, 10]) # Player
     pygame.display.update()
     clock.tick(fps)
 
