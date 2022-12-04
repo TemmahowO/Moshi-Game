@@ -60,7 +60,8 @@ while True:
     food_y += food_y_speed
 
     #Chips away at the users hunger
-    hunger -= 0.1
+    hunger -= 0.08
+
     # Collision checking
     # Figure out how this works. It is confusing the life out of me.
     if player_x_pos >= food_x and player_x_pos <= food_x + 20:
