@@ -24,13 +24,13 @@ def movement_controller():
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-        player.x_speed = 5
+        player.x_speed = 10
     elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
-        player.x_speed = -5
-    if keys[pygame.K_UP] or keys[pygame.K_w]:
-        player.y_speed = 5
+        player.x_speed = -10
+    elif keys[pygame.K_UP] or keys[pygame.K_w]:
+        player.y_speed = -10
     elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
-        player.y_speed = -5
+        player.y_speed = 10
     else:
         player.x_speed = 0
         player.y_speed = 0
@@ -38,7 +38,6 @@ def movement_controller():
     return player.x_speed, player.y_speed
 
 pygame.init()
-
 
 white = (255, 255, 255)
 red = (255, 0, 0)
@@ -63,6 +62,7 @@ pygame.display.set_caption("Moshi Game")
 
 
 while Game_on == True:
+    print(player.x_speed)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             Game_on = False
@@ -74,6 +74,6 @@ while Game_on == True:
     window.fill(gray)
     pygame.draw.rect(window, red, [player_x, player_y, 10, 10])
     pygame.display.update()
-    clock.time(fps)
+    clock.tick(fps)
 pygame.quit()
 quit()
