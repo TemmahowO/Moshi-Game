@@ -27,7 +27,10 @@ pygame.display.set_caption("Moshi Game")
 hunger = 50
 health = 100
 
-
+def render_object(rand_x, rand_y):
+    rand_x = randint(rand_x, rand_y)
+    rand_y = randint(rand_x, rand_y)
+    return rand_x, rand_y
 
 while True:
     # Bare bones stuff
@@ -63,6 +66,7 @@ while True:
     if player_x_pos >= food_x and player_x_pos <= food_x + 20:
         if player_y_pos >= food_y and player_y_pos <= food_y + 20:
             hunger += 1
+            food_x, food_y = render_object(200, 300)
             if hunger >= 50:
                 hunger = 50
 
@@ -80,6 +84,7 @@ while True:
     # Rendering and updating stuff.
     window.fill(white)
     pygame.draw.rect(window, gray, [food_x, food_y, 10, 10]) # Food
+    #pygame.draw.rect(window, gray, [rand_y, rand_x, 10, 10])
     pygame.draw.rect(window, red, [player_x_pos - 10, player_y_pos - 10, 10, 10]) # Player
     pygame.display.update()
     clock.tick(fps)
