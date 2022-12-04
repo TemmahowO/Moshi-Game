@@ -1,5 +1,6 @@
 import pygame
 from random import randint
+import time
 
 pygame.init()
 
@@ -55,20 +56,30 @@ while True:
     food_x += food_x_speed
     food_y += food_y_speed
 
+    #Chips away at the users hunger
+    hunger -= 0.1
     # Collision checking
     # Figure out how this works. It is confusing the life out of me.
-    if player_x_pos >= food_x and player_x_pos <= food_x + 30:
-        if player_y_pos >= food_y and player_y_pos <= food_y + 30:
-            print("collision detected") 
+    if player_x_pos >= food_x and player_x_pos <= food_x + 20:
+        if player_y_pos >= food_y and player_y_pos <= food_y + 20:
+            hunger += 1
+            if hunger >= 50:
+                hunger = 50
 
+    #Checking if the player died
+    if hunger <= 0:
+        health -= 0.1
+    if health <= 0:
+        pygame.quit()
     #Debug stuff
-    print("y: ", food_y)
-    print("x: ", food_x)
+    #print("y: ", food_y)
+    #print("x: ", food_x)
+    print("hunger: ", hunger, "\nhealth: ", health)
     #print("food_x_speed: ", food_x_speed, "\nfood_y_speed: ", food_y_speed)
 
     # Rendering and updating stuff.
     window.fill(white)
-    pygame.draw.rect(window, gray, [food_x, food_y, 20, 20]) # Food
+    pygame.draw.rect(window, gray, [food_x, food_y, 10, 10]) # Food
     pygame.draw.rect(window, red, [player_x_pos - 10, player_y_pos - 10, 10, 10]) # Player
     pygame.display.update()
     clock.tick(fps)
