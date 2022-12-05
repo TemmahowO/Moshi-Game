@@ -1,6 +1,30 @@
 import pygame
 from random import randint
 
+white = (255, 255, 255)
+red = (255, 0, 0)
+gray = (169,169,169)
+black = (0, 0, 0)
+
+window_width = 500
+window_height = 500
+
+fps = 30
+clock = pygame.time.Clock()
+
+object_y = 240
+object_x = 240
+player_x = 250
+player_y = 250
+
+player_width = 10
+player_hight = 10
+object_width = 10
+object_hight = 10
+
+Game_on = True
+
+
 # Classes and functions
 
 class Player:
@@ -39,6 +63,15 @@ def movement_controller():
 
     return player.x_speed, player.y_speed
 
+def change_object_placement(rand_x, rand_y):
+    global object_x
+    global object_y
+    rand_x = randint(rand_x, rand_y)
+    rand_y = randint(rand_x, rand_y)
+    object_y = rand_y
+    object_x = rand_x
+    return rand_x, rand_y
+
 
 def collision_check():
     # if player_x > object_x and player_x < object_x + object_width or player_x + player_width > object_x and player_x + player_width < object_y + object_width:
@@ -46,36 +79,13 @@ def collision_check():
     #     if player_y > object_y and player_y < object_y + object_hight or player_y + player_hight > object_y and player_y + player_hight < object_y:
     #         print("x and y")
 
-     if player_x >= object_x and player_x <= object_x + 20:
-        if player_y >= object_y and player_y <= object_y + 20:
-            print("Balls")
+     if player_x >= object_x and player_x <= object_x + 10:
+        if player_y >= object_y and player_y <= object_y + 10:
+            change_object_placement(200, 400)
 
 pygame.init()
 
 # Variables
-
-white = (255, 255, 255)
-red = (255, 0, 0)
-gray = (169,169,169)
-black = (0, 0, 0)
-
-window_width = 500
-window_height = 500
-
-fps = 30
-clock = pygame.time.Clock()
-
-object_y = 240
-object_x = 240
-player_x = 250
-player_y = 250
-
-player_width = 10
-player_hight = 10
-object_width = 10
-object_hight = 10
-
-Game_on = True
 
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Moshi Game")
@@ -90,7 +100,6 @@ while Game_on == True:
     movement_controller()
     object_x += player.x_speed
     object_y += player.y_speed
-
     collision_check()
 
     window.fill(gray)
