@@ -1,5 +1,7 @@
 import pygame
-from random import randint
+from pygame.locals import *
+from Player import * 
+
 
 white = (255, 255, 255)
 red = (255, 0, 0)
@@ -22,66 +24,9 @@ player_hight = 10
 object_width = 10
 object_hight = 10
 
+# Todo - Get this into the player class
+
 Game_on = True
-
-
-# Classes and functions
-
-class Player:
-    def __init__(self):
-        self.x = 0
-        self.y = 0
-        self.y_speed = 0
-        self.x_speed = 0
-        self.health = 100
-        self.hunger = 50
-    
-    def health_system(self):
-        self.hunger -= .1
-        if self.hunger <= 0:
-            hunger = 0
-            health -= 1
-
-player = Player()
-
-def movement_controller():
-    keys = pygame.key.get_pressed()
-
-    if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-        player.x_speed = -5
-    elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
-        player.x_speed = 5
-    else:
-        player.x_speed = 0
-
-    if keys[pygame.K_UP] or keys[pygame.K_w]:
-        player.y_speed = 5
-    elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
-        player.y_speed = -5
-    else: 
-        player.y_speed = 0
-
-    return player.x_speed, player.y_speed
-
-def change_object_placement(rand_x, rand_y):
-    global object_x
-    global object_y
-    rand_x = randint(rand_x, rand_y)
-    rand_y = randint(rand_x, rand_y)
-    object_y = rand_y
-    object_x = rand_x
-    return rand_x, rand_y
-
-
-def collision_check():
-    # if player_x > object_x and player_x < object_x + object_width or player_x + player_width > object_x and player_x + player_width < object_y + object_width:
-    #     print("x collision")
-    #     if player_y > object_y and player_y < object_y + object_hight or player_y + player_hight > object_y and player_y + player_hight < object_y:
-    #         print("x and y")
-
-     if player_x >= object_x and player_x <= object_x + 10:
-        if player_y >= object_y and player_y <= object_y + 10:
-            change_object_placement(200, 400)
 
 pygame.init()
 
@@ -95,16 +40,24 @@ while Game_on == True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             Game_on = False
+    
+    object_rect = Rect((object_x, object_y, object_width, object_hight))
+    player_rect = Rect((player_x, player_y, player_width, player_hight))
+    collide_true = pygame.Rect.colliderect(player_rect, object_rect)
 
-    #used object_x/y instead of player_x/y because the player does not move but, everything else does.
+    #used object_x/y instead of player_x/y because the player does not move instead, everything else does.
     movement_controller()
     object_x += player.x_speed
     object_y += player.y_speed
-    collision_check()
+
+    #Nevermind
+    if collide_true == True:
+        change_object_placement(200, 400)
+        print(collide_true)
 
     window.fill(gray)
-    pygame.draw.rect(window, white, [object_x, object_y, object_width, object_hight]) # Object
-    pygame.draw.rect(window, red, [player_x, player_y, player_width, player_hight]) # Player
+    pygame.draw.rect(window, white, object_rect) # Object
+    pygame.draw.rect(window, red, player_rect) # Player
     clock.tick(fps)
     pygame.display.update()
     
