@@ -10,9 +10,10 @@ black = (0, 0, 0)
 
 window_width = 500
 window_height = 500
-
 fps = 30
 clock = pygame.time.Clock()
+rand_x = 200
+rand_y = 400
 
 object_y = 240
 object_x = 240
@@ -52,8 +53,10 @@ while Game_on == True:
 
     #Nevermind
     if collide_true == True:
-        change_object_placement(200, 400)
-        print(collide_true)
+        rand_x = randint(rand_x, rand_y)
+        rand_y = randint(rand_x, rand_y)
+        object_y = rand_y
+        object_x = rand_x
 
     window.fill(gray)
     pygame.draw.rect(window, white, object_rect) # Object
@@ -63,4 +66,4 @@ while Game_on == True:
     
 
 pygame.quit()
-quit()
+quit()s

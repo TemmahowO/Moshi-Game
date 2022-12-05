@@ -37,12 +37,3 @@ def movement_controller():
         player.y_speed = 0
 
     return player.x_speed, player.y_speed
-
-def change_object_placement(rand_x, rand_y):
-    global object_x
-    global object_y
-    rand_x = randint(rand_x, rand_y)
-    rand_y = randint(rand_x, rand_y)
-    object_y = rand_y
-    object_x = rand_x
-    return rand_x, rand_y
