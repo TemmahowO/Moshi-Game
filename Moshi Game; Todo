@@ -13,3 +13,15 @@ First re-write the game to the point that it is now. - Done
 	- Make a functional hunger system. (Figure out how it is supposed to work)
 	- Make art for the game.
 	- Make a food, tree etc class.
+
+
+To-do:
+	
+	Tech_stuff:
+		- Make a player controller - Done
+		- Make an interactable object - Done
+		- Camera - In progress
+		- Font rendering system - Not started
+	
+	Gamplay_stuff:
+		- 

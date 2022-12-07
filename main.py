@@ -12,20 +12,23 @@ window_width = 500
 window_height = 500
 fps = 30
 clock = pygame.time.Clock()
-rand_x = 200
+rand_x = 100
 rand_y = 400
 
 object_y = 240
 object_x = 240
-player_x = 250
-player_y = 250
+player_x_pos = 250
+player_y_pos = 250
+
+player_x = 0
+player_y = 0
 
 player_width = 10
 player_hight = 10
 object_width = 10
 object_hight = 10
 
-# Todo - Get this into the player class
+
 
 Game_on = True
 
@@ -42,21 +45,24 @@ while Game_on == True:
         if event.type == pygame.QUIT:
             Game_on = False
     
+    # Todo - Get this into the player class
     object_rect = Rect((object_x, object_y, object_width, object_hight))
-    player_rect = Rect((player_x, player_y, player_width, player_hight))
+    player_rect = Rect((player_x_pos, player_y_pos, player_width, player_hight))
     collide_true = pygame.Rect.colliderect(player_rect, object_rect)
 
-    #used object_x/y instead of player_x/y because the player does not move instead, everything else does.
+    #I also add player_x and y to player.speed to keep track of where the player is in the game, as the player rect does not move.
     movement_controller()
     object_x += player.x_speed
     object_y += player.y_speed
+    player_x += player.y_speed
+    player_y += player.y_speed
 
     #Nevermind
     if collide_true == True:
-        rand_x = randint(rand_x, rand_y)
-        rand_y = randint(rand_x, rand_y)
-        object_y = rand_y
-        object_x = rand_x
+        rand_x2 = randint(rand_x, rand_y)
+        rand_y2 = randint(rand_x, rand_y)
+        object_y = rand_y2
+        object_x = rand_x2
 
     window.fill(gray)
     pygame.draw.rect(window, white, object_rect) # Object
@@ -66,4 +72,4 @@ while Game_on == True:
     
 
 pygame.quit()
-quit()s
+quit()
