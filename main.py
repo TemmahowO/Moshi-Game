@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 from Player import * 
+import time
 
 
 white = (255, 255, 255)
@@ -28,11 +29,18 @@ player_hight = 10
 object_width = 10
 object_hight = 10
 
-
+score = 0
 
 Game_on = True
 
 pygame.init()
+
+fonts = pygame.font.get_fonts()
+
+def message_to_screen(msg, colour, pos_x, pos_y):
+    font = pygame.font.SysFont(None, 25)
+    screen_text = font.render(msg, True, colour)
+    window.blit(screen_text, [pos_x, pos_y])
 
 # Variables
 
@@ -63,13 +71,15 @@ while Game_on == True:
         rand_y2 = randint(rand_x, rand_y)
         object_y = rand_y2
         object_x = rand_x2
+        score += 1
 
     window.fill(gray)
+    message_to_screen(f"Score: {score}", red, 100, 350)
     pygame.draw.rect(window, white, object_rect) # Object
     pygame.draw.rect(window, red, player_rect) # Player
     clock.tick(fps)
     pygame.display.update()
-    
+
 
 pygame.quit()
 quit()

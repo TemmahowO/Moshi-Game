@@ -2,10 +2,11 @@ import pygame
 from pygame.locals import *
 from random import randint
 
+
 class Player:
     def __init__(self):
-        self.x = 0
-        self.y = 0
+        self.player_x = 0
+        self.player_y = 0
         self.y_speed = 0
         self.x_speed = 0
         self.health = 100
@@ -14,8 +15,28 @@ class Player:
     def health_system(self):
         self.hunger -= .1
         if self.hunger <= 0:
-            hunger = 0
-            health -= 1
+            self.hunger = 0
+            self.health -= 1
+
+
+class Object:
+    def __init__(self):
+        self.object_x = randint(-1000, 1000)
+        self.object_y = randint(-1000, 1000)
+        self.colour = (255, 255, 255)
+
+    def draw(self, window):
+        self.draw_x = self.object_x
+        self.draw_y = self.object_y
+        pygame.draw.rect(window, self.colour, self.draw_x, self.draw_y)
+
+    def is_visible(self):
+        if self.player_x in range(self.object_x, self.object_y):
+            self.draw(self.window)
+
+
+class Tree(Object):
+    pass
 
 player = Player()
 
