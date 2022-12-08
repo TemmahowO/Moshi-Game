@@ -24,11 +24,12 @@ class Object:
         self.object_x = randint(-1000, 1000)
         self.object_y = randint(-1000, 1000)
         self.colour = (255, 255, 255)
+        
 
-    def draw(self, window):
+    def draw(self, window, size):
         self.draw_x = self.object_x
         self.draw_y = self.object_y
-        pygame.draw.rect(window, self.colour, self.draw_x, self.draw_y)
+        pygame.draw.rect(window, self.colour, [self.draw_x, self.draw_y, self.draw_x])
 
     def is_visible(self):
         if self.player_x in range(self.object_x, self.object_y):
@@ -39,6 +40,8 @@ class Tree(Object):
     pass
 
 player = Player()
+
+
 
 def movement_controller():
     keys = pygame.key.get_pressed()

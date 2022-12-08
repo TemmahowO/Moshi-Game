@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from Player import * 
+from Classes_Functions import * 
 import time
 
 
@@ -36,6 +36,8 @@ Game_on = True
 pygame.init()
 
 fonts = pygame.font.get_fonts()
+
+objects = Object()
 
 def message_to_screen(msg, colour, pos_x, pos_y):
     font = pygame.font.SysFont(None, 25)
@@ -73,7 +75,11 @@ while Game_on == True:
         object_x = rand_x2
         score += 1
 
+
     window.fill(gray)
+    for i in range(6):
+        objects.draw(window, 15)
+
     message_to_screen(f"Score: {score}", red, 100, 350)
     pygame.draw.rect(window, white, object_rect) # Object
     pygame.draw.rect(window, red, player_rect) # Player
