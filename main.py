@@ -49,11 +49,12 @@ while Game_on == True:
     player_rect = Rect((player_x_pos, player_y_pos, player_width, player_hight))
     collide_true = pygame.Rect.colliderect(player_rect, objects.object_rect)
 
+    border_detection()
     movement_controller()
+    
+    #Changing Objects and Players x and y coords.
     objects.object_x += objects.x_speed
     objects.object_y += objects.y_speed
-
-    # Camera stuff
     player.player_x += objects.x_speed
     player.player_y += objects.y_speed
 

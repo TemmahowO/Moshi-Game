@@ -47,37 +47,42 @@ class Tree(Object):
 objects = Object()
 player = Player()
 
-# Takes care of player movement and the 1000 pixel border detection
+
+def border_detection():
+    if player.player_y <= -1000:
+        player.player_y = -1000
+        objects.y_speed = 0
+        objects.object_y = objects.object_y
+    elif player.player_y >= 1000:
+        player.player_y = 1000
+        objects.y_speed = 0
+        objects.object_y = objects.object_y
+
+    if player.player_x <= -1000:
+        player.player_x = -1000
+        objects.x_speed = 0
+        objects.object_x = objects.object_x
+    elif player.player_x >= 1000:
+        player.player_x = 1000
+        objects.x_speed = 0
+        objects.object_x = objects.object_x
+
+
+# Takes care of player movement
 def movement_controller():
     keys = pygame.key.get_pressed()
-    # God, what have I done
-    if player.player_x < -1000 or player.player_y < -1000:
-        objects.x_speed = 0
-        objects.y_speed = 0
-        player.player_x = -1000
-        player.player_y = -1000
-        objects.object_x = objects.object_x - 5
-        objects.object_y = objects.object_y - 5 
-    elif player.player_x > 1000 or player.player_y > 1000:
-        objects.x_speed = 0
-        objects.y_speed = 0
-        player.player_x = 1000
-        player.player_y = 1000
-        objects.object_x = objects.object_x - 5
-        objects.object_y = objects.object_y - 5
+    if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+        objects.x_speed = -5
+    elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
+         objects.x_speed = 5
     else:
-        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            objects.x_speed = -5
-        elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            objects.x_speed = 5
-        else:
-            objects.x_speed = 0
+        objects.x_speed = 0
 
-        if keys[pygame.K_UP] or keys[pygame.K_w]:
-            objects.y_speed = 5
-        elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
-            objects.y_speed = -5
-        else: 
-            objects.y_speed = 0
+    if keys[pygame.K_UP] or keys[pygame.K_w]:
+        objects.y_speed = 5
+    elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
+        objects.y_speed = -5
+    else: 
+        objects.y_speed = 0
 
-        return objects.x_speed, objects.y_speed
+    return objects.x_speed, objects.y_speed
