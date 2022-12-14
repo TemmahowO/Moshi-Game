@@ -1,16 +1,16 @@
 import pygame
 from pygame.locals import *
 from random import randint
-
+import json
 
 class Player:
     def __init__(self):
-        self.player_x = 900
-        self.player_y = 900
+        self.player_x = randint(-500, 500)
+        self.player_y = randint(-500, 500)
         self.player_speed = 0
         self.health = 100
         self.hunger = 50
-    
+      
     def health_system(self):
         self.hunger -= .1
         if self.hunger <= 0:
@@ -39,34 +39,15 @@ class Object:
         if self.player_x in range(self.object_x, self.object_y):
             self.draw(self.window)
 
-
+    def surface_crossover(self):
+      if self.object_x <= 0 or self.object_x >= 
+      
 class Tree(Object):
     pass
 
 # Defined here instead of main.py so I could get the movement controller and other stuff working without any stupid workarounds.
 objects = Object()
 player = Player()
-
-
-def border_detection():
-    if player.player_y <= -1000:
-        player.player_y = -1000
-        objects.y_speed = 0
-        objects.object_y = objects.object_y
-    elif player.player_y >= 1000:
-        player.player_y = 1000
-        objects.y_speed = 0
-        objects.object_y = objects.object_y
-
-    if player.player_x <= -1000:
-        player.player_x = -1000
-        objects.x_speed = 0
-        objects.object_x = objects.object_x
-    elif player.player_x >= 1000:
-        player.player_x = 1000
-        objects.x_speed = 0
-        objects.object_x = objects.object_x
-
 
 # Takes care of player movement
 def movement_controller():

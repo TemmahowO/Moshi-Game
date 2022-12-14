@@ -7,8 +7,8 @@ red = (255, 0, 0)
 gray = (169,169,169)
 black = (0, 0, 0)
 
-window_width = 500
-window_height = 500
+window_width = 800
+window_height = 700
 fps = 30
 clock = pygame.time.Clock()
 rand_x = 100
@@ -23,8 +23,6 @@ player_width = 10
 player_hight = 10
 object_width = 10
 object_hight = 10
-
-score = 0
 
 Game_on = True
 
@@ -49,7 +47,6 @@ while Game_on == True:
     player_rect = Rect((player_x_pos, player_y_pos, player_width, player_hight))
     collide_true = pygame.Rect.colliderect(player_rect, objects.object_rect)
 
-    border_detection()
     movement_controller()
     
     #Changing Objects and Players x and y coords.
