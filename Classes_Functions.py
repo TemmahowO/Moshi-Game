@@ -40,7 +40,10 @@ class Object:
             self.draw(self.window)
 
     def surface_crossover(self):
-      if self.object_x <= 0 or self.object_x >= 
+      if self.object_x <= 0:
+        self.object_x = 810
+      elif self.object_x >= 800:
+        self.object_x = -10
       
 class Tree(Object):
     pass
