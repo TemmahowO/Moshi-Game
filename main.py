@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
-from Classes_Functions import * 
+from Classes import * 
+import Functions
 
 white = (255, 255, 255)
 red = (255, 0, 0)
@@ -26,14 +27,13 @@ object_hight = 10
 
 Game_on = True
 
+# Defined here to avoid confusion. - FIX THIS LATER.
+objects = Object()
+player = Player()
+
 pygame.init()
 
 fonts = pygame.font.get_fonts()
-
-def message_to_screen(msg, colour, pos_x, pos_y):
-    font = pygame.font.SysFont(None, 25)
-    screen_text = font.render(msg, True, colour)
-    window.blit(screen_text, [pos_x, pos_y])
 
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Moshi Game")
@@ -47,9 +47,11 @@ while Game_on == True:
     player_rect = Rect((player_x_pos, player_y_pos, player_width, player_hight))
     collide_true = pygame.Rect.colliderect(player_rect, objects.object_rect)
 
-    movement_controller()
-    write_to_json()
-    objects.surface_crossover()
+    # Calling all functions from within the Functions.py file.
+    Functions.movement_controller()
+    Functions.write_to_json()
+    Functions.render_from_json()
+    Functions.objects.surface_crossover()
     
 
     #Changing Objects and Players x and y coords.
@@ -66,11 +68,12 @@ while Game_on == True:
         objects.object_y = rand_y2
         objects.object_x = rand_x2
 
+
     window.fill(gray)
     objects.draw(window, 20)
     pygame.draw.rect(window, red, player_rect)
-    message_to_screen(f"player_x: {player.player_x}", red, 0, 0)
-    message_to_screen(f"player_y: {player.player_y}", red, 0, 20)
+    Functions.message_to_screen(window, f"player_x: {player.player_x}", red, 0, 0) # Exists for debugging reasons. 
+    Functions.message_to_screen(window, f"player_y: {player.player_y}", red, 0, 20) # Exists for debugging reasons. 
     clock.tick(fps)
     pygame.display.update()
 
