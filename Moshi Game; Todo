@@ -1,27 +1,3 @@
-Todo List:
+Cat that collects trees so it won't starve to death
 
-First re-write the game to the point that it is now. - Done
-
-	- Round the health and hunger variables
-	- Make it more readable
-	- Use classes
-	- Rename variables and functions so they are readable
-	- Make multiple foods spawn
-	- Make sure that food that has been picked up spawns outside of the players view.
-	- Make a player x, y coordinate system
-	- Make trees
-	- Make a functional hunger system. (Figure out how it is supposed to work)
-	- Make art for the game.
-	- Make a food, tree etc class.
-
-
-To-do:
-	
-	Tech_stuff:
-		- Make a player controller - Done
-		- Make an interactable object - Done
-		- Camera - Do later
-		- Font rendering system - - Done
-	
-	Gamplay_stuff:
-		- 
+Cut down trees/hit trees
