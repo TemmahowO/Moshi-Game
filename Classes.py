@@ -9,6 +9,7 @@ class Player:
         self.hunger = 50
         self.health = 100
         self.size = size
+        self.rect = Rect((self.x_pos, self.y_pos, size, size))I sopme
 
     def health_system(self):
         self.hunger -= .1
@@ -35,6 +36,7 @@ class Object:
         self.y_pos = randint(0, 500)
         self.durability = durability
         self.size = size
+        self.rect = Rect((self.x_pos, self.y_pos, size, size))
 
     def draw(self, window, colour, size):
         self.draw_x = self.x_pos
@@ -43,3 +45,8 @@ class Object:
         
         pygame.draw.rect(window, colour, self.rect)
         return self.rect
+
+    def randomize_coords(self, window, colour, size):
+        self.x_pos = randint(0, 500)
+        self.y_pos = randint(0, 500)
+        self.draw(window, colour, size)
