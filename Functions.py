@@ -1,11 +1,12 @@
 import pygame
 from pygame.locals import *
+import time
 
 # Renders text to the screen
-def message_to_screen(window, msg, colour, pos_x, pos_y):
+def message_to_screen(surface, msg, colour, pos_x, pos_y):
     font = pygame.font.SysFont(None, 25)
     screen_text = font.render(msg, True, colour)
-    window.blit(screen_text, [pos_x, pos_y])
+    surface.blit(screen_text, [pos_x, pos_y])
 
 # Takes care of player movement and collision
 def movement_controller_and_collision_check(class_name, rect_one, rect_two):
@@ -36,4 +37,11 @@ def movement_controller_and_collision_check(class_name, rect_one, rect_two):
     class_name.x_pos += class_name.x_speed
     class_name.y_pos += class_name.y_speed
 
-    return class_name.x_speed, class_name.y_speed
+def cooldown():
+    time.sleep(4.6)
+    return True
+
+def keybinds(class_name, saturation, food):
+    for event in pygame.event.get():
+        pass
+            

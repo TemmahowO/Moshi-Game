@@ -1,6 +1,10 @@
 import pygame
 from pygame.locals import Rect
 from random import randint
+import threading
+from Functions import cooldown
+cooldown = threading.Thread(target=cooldown, name='cooldown')
+
 
 class Player:
     def __init__(self, size):
@@ -9,12 +13,20 @@ class Player:
         self.hunger = 50
         self.health = 100
         self.size = size
+        self.rect = Rect((self.x_pos, self.y_pos, size, size))
 
-    def health_system(self):
-        self.hunger -= .1
-        if self.hunger <= 0:
-            self.hunger = 0
-            self.health -= 1
+    def health_system(self, is_eating, is_dead):
+        if is_eating:
+            self.hunger += 5
+            cooldown.start()
+        else:
+            self.hunger -= .1
+            round(self.hunger, 2)
+            if self.hunger <= 0:
+                self.health -= .1
+                if self.health <= 0:
+                    is_dead = True
+                    return is_dead
 
     def draw(self, window, colour, size):
         self.draw_x = self.x_pos
@@ -30,11 +42,13 @@ class Player:
         return self.hitbox_rect
 
 class Object:
-    def __init__(self, durability, size):
+    def __init__(self, durability, saturation, size):
         self.x_pos = randint(0, 500)
         self.y_pos = randint(0, 500)
         self.durability = durability
         self.size = size
+        self.rect = Rect((self.x_pos, self.y_pos, size, size))
+        self.saturation = saturation
 
     def draw(self, window, colour, size):
         self.draw_x = self.x_pos
@@ -43,3 +57,8 @@ class Object:
         
         pygame.draw.rect(window, colour, self.rect)
         return self.rect
+
+    def randomize_coords(self, window, colour, size):
+        self.x_pos = randint(0, 500)
+        self.y_pos = randint(0, 500)
+        self.draw(window, colour, size)
