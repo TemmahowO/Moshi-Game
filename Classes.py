@@ -14,6 +14,7 @@ class Player:
         self.health = 100
         self.size = size
         self.rect = Rect((self.x_pos, self.y_pos, size, size))
+        self.rect = Rect((self.x_pos, self.y_pos, size, size))I sopme
 
     def health_system(self, is_eating, is_dead):
         if is_eating:

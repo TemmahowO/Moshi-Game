@@ -3,6 +3,7 @@ from pygame.locals import *
 import sys
 from Classes import * 
 import Functions
+import time
 
 def main():
     pygame.init()
@@ -25,9 +26,9 @@ def main():
     wood_count = 0
 
     player = Player(10)
-    tree = Object(5, 0, 20)
-    food = Object(1, 10, 5)
-    wood = Object(1, 0, 10)
+    tree = Object(5, 20)
+    food = Object(1, 5)
+    wood = Object(1, 10)
 
     window = pygame.display.set_mode((window_width, window_height))
     pygame.display.set_caption("Moshi Game")
@@ -81,9 +82,9 @@ def main():
         player.draw(window, black, 10) # player
         tree.draw(window, red, 20)
         if draw_food == True:
-            drawn_food = food.draw(window, green, 5)
+            food.draw(window, green, 5)
         if draw_wood == True:
-            drawn_wood = wood.draw(window, brown, 10)
+            wood.draw(window, brown, 10)
         
         # Drawing text
         Functions.message_to_screen(window, f"Food: {raw_food_count}", white, 0, 20)

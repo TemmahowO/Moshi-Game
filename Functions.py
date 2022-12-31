@@ -45,3 +45,4 @@ def keybinds(class_name, saturation, food):
     for event in pygame.event.get():
         pass
             
+    class_name.y_pos += class_name.y_speed
