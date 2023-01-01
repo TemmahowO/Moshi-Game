@@ -36,13 +36,3 @@ def movement_controller_and_collision_check(class_name, rect_one, rect_two):
     # Actually moves the player.
     class_name.x_pos += class_name.x_speed
     class_name.y_pos += class_name.y_speed
-
-def cooldown():
-    time.sleep(4.6)
-    return True
-
-def keybinds(class_name, saturation, food):
-    for event in pygame.event.get():
-        pass
-            
-    class_name.y_pos += class_name.y_speed

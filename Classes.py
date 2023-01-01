@@ -1,32 +1,28 @@
 import pygame
 from pygame.locals import Rect
 from random import randint
-import threading
-from Functions import cooldown
-cooldown = threading.Thread(target=cooldown, name='cooldown')
 
 
 class Player:
-    def __init__(self, size):
+    def __init__(self, size, is_dead):
         self.x_pos = randint(0, 500)
         self.y_pos = randint(0, 500)
         self.hunger = 50
         self.health = 100
         self.size = size
         self.rect = Rect((self.x_pos, self.y_pos, size, size))
-
+        self.is_dead = is_dead
     def health_system(self, is_eating, is_dead):
         if is_eating:
-            self.hunger += 5
-            cooldown.start()
+            self.hunger += 10
         else:
-            self.hunger -= .1
+            self.hunger -= 1
             round(self.hunger, 2)
             if self.hunger <= 0:
-                self.health -= .1
+                self.health -= 1
                 if self.health <= 0:
-                    is_dead = True
-                    return is_dead
+                    self.is_dead = True
+                    return self.is_dead
 
     def draw(self, window, colour, size):
         self.draw_x = self.x_pos

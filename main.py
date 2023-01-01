@@ -1,3 +1,5 @@
+# BETA - V0.01
+
 import pygame
 from pygame.locals import *
 import sys
@@ -13,22 +15,22 @@ def main():
     gray = [169,169,169]
     black = [0, 0, 0]
     green = [0, 255, 0]
-    brown = [150,55,51]
 
     window_width = 800
     window_height = 700
     fps = 60
     clock = pygame.time.Clock()
     Game_on = True
+    is_eating = False
+    is_dead = False
     draw_food = False
-    draw_wood = False
     raw_food_count = 0
-    wood_count = 0
+    game_over = False
 
-    player = Player(10)
-    tree = Object(5, 20)
-    food = Object(1, 5)
-    wood = Object(1, 10)
+    player = Player(10, False)
+    tree = Object(5, 0, 20)
+    food = Object(1, 10, 5)
+
 
     window = pygame.display.set_mode((window_width, window_height))
     pygame.display.set_caption("Moshi Game")
@@ -52,16 +54,30 @@ def main():
                 if tree.durability <= 0:
                     food.x_pos = tree.x_pos + tree.size /2
                     food.y_pos = tree.y_pos + tree.size /2
-                    wood.x_pos = tree.x_pos + tree.size /2 - 20
-                    wood.y_pos = tree.y_pos + tree.size /2 - 20
                     draw_food = True
-                    draw_wood = True
                     tree.randomize_coords(window, red, 20) # Arguments are there because the draw method is called within the randomize_coords method.
                     tree.durability = 10
                     red[0] = 255
                 # Prevents an exception.
                 if red[0] <= 0:
                     red[0] = 255
+  
+            if is_dead:
+                game_over = True
+                while game_over:
+                    window.fill(gray)
+                    Functions.message_to_screen(window, "You have died! Press enter to start again and esc to exit!", white, window_width/2 - 100, window_height/2)
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            game_over = False
+                            Game_on = False
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == K_ESCAPE:
+                            Game_on = False
+                            game_over = False
+                        elif event.key == K_RETURN:
+                            main()
+                    pygame.display.update()
 
         # Collision detection
         if Rect.colliderect(player.rect, food.rect):
@@ -69,12 +85,6 @@ def main():
             raw_food_count += 1
             food.x_pos = 99999
             food.draw(window, green, 5) # Updates the rectangles position
-        elif Rect.colliderect(player.rect, wood.rect):
-            draw_wood = False
-            wood_count += 1
-            wood.x_pos = 99999
-            wood.draw(window, green, 5) # Updates the rectangles position
-
 
         # Functions.keybinds(player, food.saturation, raw_food_count)
         window.fill(gray)
@@ -83,12 +93,12 @@ def main():
         tree.draw(window, red, 20)
         if draw_food == True:
             food.draw(window, green, 5)
-        if draw_wood == True:
-            wood.draw(window, brown, 10)
-        
         # Drawing text
-        Functions.message_to_screen(window, f"Food: {raw_food_count}", white, 0, 20)
-        Functions.message_to_screen(window, f"Wood: {wood_count}", white, 0, 40)
+        player.health_system(is_eating, is_dead)
+        is_dead = player.is_dead
+        Functions.message_to_screen(window, f"Food: {raw_food_count}", white, 700, 20)
+        Functions.message_to_screen(window, f"Health: {player.health}", white, 0, 20)
+        Functions.message_to_screen(window, f"Hunger: {player.hunger}", white, 0, 40)
         # Collision check for the player
         Functions.movement_controller_and_collision_check(player, player.rect, tree.rect) # Called here so it can use the returned rect value
         clock.tick(fps)
@@ -96,7 +106,6 @@ def main():
 
     pygame.quit()
     sys.exit()
-    print("cocl")
 
 if __name__ == "__main__":
     main()
