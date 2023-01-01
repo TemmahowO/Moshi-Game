@@ -96,6 +96,7 @@ def main():
 
     pygame.quit()
     sys.exit()
+    print("cocl")
 
 if __name__ == "__main__":
     main()
