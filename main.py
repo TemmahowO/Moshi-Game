@@ -1,4 +1,4 @@
-# BETA - V0.01
+# indev - V0.01
 
 import pygame
 from pygame.locals import *
