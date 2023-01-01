@@ -14,12 +14,12 @@ class Player:
         self.is_dead = is_dead
     def health_system(self, is_eating, is_dead):
         if is_eating:
-            self.hunger += 10
+            self.hunger += 100000000
         else:
-            self.hunger -= 1
+            self.hunger -= .02
             round(self.hunger, 2)
             if self.hunger <= 0:
-                self.health -= 1
+                self.health -= .5
                 if self.health <= 0:
                     self.is_dead = True
                     return self.is_dead

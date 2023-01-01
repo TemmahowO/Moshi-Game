@@ -29,7 +29,7 @@ def main():
 
     player = Player(10, False)
     tree = Object(5, 0, 20)
-    food = Object(1, 10, 5)
+    food = Object(1, 11, 10)
 
 
     window = pygame.display.set_mode((window_width, window_height))
