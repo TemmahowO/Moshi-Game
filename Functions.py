@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import *
-import time
 
 # Renders text to the screen
 def message_to_screen(surface, msg, colour, pos_x, pos_y):

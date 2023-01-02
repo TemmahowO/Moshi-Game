@@ -5,7 +5,6 @@ from pygame.locals import *
 import sys
 from Classes import * 
 import Functions
-import time
 
 def main():
     pygame.init()
